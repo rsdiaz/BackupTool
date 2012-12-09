@@ -11,19 +11,17 @@
 #				-h 		help				   #
 # 				-c    Backups  			   	   #	
 #**********************************************#
+# Only user root
 
-# Backups total de las carpetas configuradas dia 1 de cada mes y copia diferencial todos los dias
-# Solo usuario root
-
-# Variables NO modificar
-ROOT_UID=0			# Only user with $UID 0 have root privileges.
-E_NOTROOT=87			# Non-root error.
-E_WRONG_ARGS=85			# Not parameters error.
-SCRIPT_PARAMETERS="-h -c"	# Script-parameters.
-DDAY=`date +%d`						# Obtenemos el dia actual
-BZ2="jcvf" 							# Compresion bz2
-# Variables que SI se pueden  modificar.
-NOM_FILE="home-bin-"					# Terminacion nombre archivo ej: copiaT-home-
+# NOT modify these variables
+ROOT_UID=0							# Only user with $UID 0 have root privileges.
+E_NOTROOT=87						# Non-root error.
+E_WRONG_ARGS=85						# Not parameters error.
+SCRIPT_PARAMETERS="-c -h -t"		# Script-parameters.
+DDAY=`date +%d`						# Current day
+BZ2="jcvf" 							# Compression bz2
+# These variables can be modified
+NOM_FILE="home-bin-"					# Termination file name ej: BackT-home-date
 DIR_SAVE="/home/roberto/bin"			# Directorios a realizar backups
 DIR_SAVE_LOG="/home/roberto/"			# Directorio destino archivo log
 DIR_SAVE_BACKT=/home/roberto/			# Directorio destino del backup
@@ -53,7 +51,7 @@ ELEMENTS=${#ARRAY[@]}
 # echo each element in array 
 # for loop
 for (( i=0;i<$ELEMENTS;i++)); do
-	tar -jcvf "$DIR_SAVE_BACKT"copiaT-"${ARRAY2[${i}]}"`date +%d%b%y`.tar.bz2 ${ARRAY[${i}]} && echo "${ARRAY[${i}]} backup total realizado con exito `date +%d%b%y`" >> "$DIR_SAVE_LOG"backuplog.log || echo "Fallo backup total ${ARRAY[${i}]} `date +%d%b%y`" >> "$DIR_SAVE_LOG"backuplog.log
+	tar -$FORMAT "$DIR_SAVE_BACKT"BackT-"${ARRAY2[${i}]}"`date +%d%b%y`.tar.bz2 ${ARRAY[${i}]} && echo "${ARRAY[${i}]} backup total realizado con exito `date +%d%b%y`" >> "$DIR_SAVE_LOG"backuplog.log || echo "Fallo backup total ${ARRAY[${i}]} `date +%d%b%y`" >> "$DIR_SAVE_LOG"backuplog.log
 done 
 }
 #########################################################################
@@ -62,7 +60,7 @@ done
 compress_backD() {
 ELEMENTS=${#ARRAY[@]}
 for (( i=0;i<$ELEMENTS;i++)); do
-	tar -$FORMAT "$DIR_SAVE_BACKT"copiaD-"${ARRAY2[${i}]}""$DDAYT"`date +%b%y`-`date +%d%b%y`.tar.bz2 ${ARRAY[${i}]} -N `date +%y%m`"$DDAYT" && echo "${ARRAY[${i}]} backup diferencial realizado con exito `date +%d%b%y`" >> "$DIR_SAVE_LOG"backuplog.log || echo "Fallo backup diferencial ${ARRAY[${i}]} `date +%d%b%y`" >> "$DIR_SAVE_LOG"backuplog.log
+	tar -$FORMAT "$DIR_SAVE_BACKT"BackD-"${ARRAY2[${i}]}""$DDAYT"`date +%b%y`-`date +%d%b%y`.tar.bz2 ${ARRAY[${i}]} -N `date +%y%m`"$DDAYT" && echo "${ARRAY[${i}]} backup diferencial realizado con exito `date +%d%b%y`" >> "$DIR_SAVE_LOG"backuplog.log || echo "Fallo backup diferencial ${ARRAY[${i}]} `date +%d%b%y`" >> "$DIR_SAVE_LOG"backuplog.log
 done
 }
 ##############################
