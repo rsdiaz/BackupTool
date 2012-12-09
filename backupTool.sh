@@ -19,7 +19,7 @@ E_NOTROOT=87					# Non-root error.
 E_WRONG_ARGS=85					# Not parameters error.
 SCRIPT_PARAMETERS="-c -h -t"			# Script-parameters.
 DDAY=`date +%d`					# Current day
-BZ2="jcvf" 					# Compression bz2
+BZ2="tar -jcvf" 				# Compression tar bz2
 # These variables can be modified
 NOM_FILE="home-bin-"				# Termination file name ej: BackT-home-date
 DIR_SAVE="/home/roberto/bin"			# Directorios a realizar backups
@@ -51,7 +51,7 @@ ELEMENTS=${#ARRAY[@]}
 # echo each element in array 
 # for loop
 for (( i=0;i<$ELEMENTS;i++)); do
-	tar -$FORMAT "$DIR_SAVE_BACKT"BackT-"${ARRAY2[${i}]}"`date +%d%b%y`.tar.bz2 ${ARRAY[${i}]} && echo "${ARRAY[${i}]} backup total realizado con exito `date +%d%b%y`" >> "$DIR_SAVE_LOG"backuplog.log || echo "Fallo backup total ${ARRAY[${i}]} `date +%d%b%y`" >> "$DIR_SAVE_LOG"backuplog.log
+	$FORMAT "$DIR_SAVE_BACKT"BackT-"${ARRAY2[${i}]}"`date +%d%b%y`.tar.bz2 ${ARRAY[${i}]} && echo "${ARRAY[${i}]} backup total realizado con exito `date +%d%b%y`" >> "$DIR_SAVE_LOG"backuplog.log || echo "Fallo backup total ${ARRAY[${i}]} `date +%d%b%y`" >> "$DIR_SAVE_LOG"backuplog.log
 done 
 }
 #########################################################################
@@ -60,7 +60,7 @@ done
 compress_backD() {
 ELEMENTS=${#ARRAY[@]}
 for (( i=0;i<$ELEMENTS;i++)); do
-	tar -$FORMAT "$DIR_SAVE_BACKT"BackD-"${ARRAY2[${i}]}""$DDAYT"`date +%b%y`-`date +%d%b%y`.tar.bz2 ${ARRAY[${i}]} -N `date +%y%m`"$DDAYT" && echo "${ARRAY[${i}]} backup diferencial realizado con exito `date +%d%b%y`" >> "$DIR_SAVE_LOG"backuplog.log || echo "Fallo backup diferencial ${ARRAY[${i}]} `date +%d%b%y`" >> "$DIR_SAVE_LOG"backuplog.log
+	$FORMAT "$DIR_SAVE_BACKT"BackD-"${ARRAY2[${i}]}""$DDAYT"`date +%b%y`-`date +%d%b%y`.tar.bz2 ${ARRAY[${i}]} -N `date +%y%m`"$DDAYT" && echo "${ARRAY[${i}]} backup diferencial realizado con exito `date +%d%b%y`" >> "$DIR_SAVE_LOG"backuplog.log || echo "Fallo backup diferencial ${ARRAY[${i}]} `date +%d%b%y`" >> "$DIR_SAVE_LOG"backuplog.log
 done
 }
 ##############################
