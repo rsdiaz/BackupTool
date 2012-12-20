@@ -67,7 +67,7 @@ done
 # Funcion programa principal #
 ##############################
 prog_main() {
-if [ "$DDAY" == "01" ]			# Si es dia 01 copia total si no copia diferencial 
+if [ "$DDAY" == "$DDAYT" ]			# Si es dia 01 copia total si no copia diferencial 
 then
 	compress_backT				# Llamada a la funcion para la copia total 
 else
