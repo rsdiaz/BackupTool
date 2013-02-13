@@ -12,7 +12,7 @@
 # 		-c    	Backups  	       #	
 #**********************************************#
 # Only user root
-
+# Po atras
 # NOT modify these variables
 ROOT_UID=0					# Only user with $UID 0 have root privileges.
 E_NOTROOT=87					# Non-root error.
